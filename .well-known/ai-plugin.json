@@ -16,9 +16,9 @@
 },
   "api": {
     "type": "openapi",
-    "url": "http://localhost:5003/openapi.yaml"
+    "url": "http://boxgpt.herokuapp.com/openapi.yaml"
   },
-  "logo_url": "http://localhost:5003/logo.png",
+  "logo_url": "http://boxgpt.herokuapp.com/logo.png",
   "contact_email": "scott.hurrey@box.com",
   "legal_info_url": "http://example.com/legal"
 }
