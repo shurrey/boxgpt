@@ -1,18 +1,27 @@
 {
-    "schema_version": "v1",
-    "name_for_human": "TODO Plugin (no auth)",
-    "name_for_model": "todo",
-    "description_for_human": "Plugin for managing a TODO list, you can add, remove and view your TODOs.",
-    "description_for_model": "Plugin for managing a TODO list, you can add, remove and view your TODOs.",
-    "auth": {
-      "type": "none"
-    },
-    "api": {
-      "type": "openapi",
-      "url": "http://localhost:5003/openapi.yaml",
-    },
-    "logo_url": "http://localhost:5003/logo.png",
-    "contact_email": "legal@example.com",
-    "legal_info_url": "http://example.com/legal"
-  }
+  "schema_version": "v1",
+  "name_for_human": "Box",
+  "name_for_model": "box",
+  "description_for_human": "Add files store in Box to your ChatGPT context",
+  "description_for_model": "Add files store in Box to your ChatGPT context",
+  "auth": {
+    "type": "oauth",
+    "client_url": "https://api.box.com/oauth2/token",
+    "scope": "*",
+    "authorization_url": "https://account.box.com/api/oauth2/authorize",
+    "authorization_content_type": "application/json",
+    "verification_tokens": {
+        "openai": "Replace_this_string_with_the_verification_token_generated_in_the_ChatGPT_UI"
+    }
+},
+  "api": {
+    "type": "openapi",
+    "url": "http://localhost:5003/openapi.yaml"
+  },
+  "logo_url": "http://localhost:5003/logo.png",
+  "contact_email": "scott.hurrey@box.com",
+  "legal_info_url": "http://example.com/legal"
+}
+
+
   
