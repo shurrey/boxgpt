@@ -43,12 +43,12 @@ async def plugin_manifest():
         text = f.read()
         return quart.Response(text, mimetype="text/json")
 
-@app.get("/openapi.yaml")
+@app.get("/openapi.json")
 async def openapi_spec():
     host = request.headers['Host']
-    with open("openapi.yaml") as f:
+    with open("openapi.json") as f:
         text = f.read()
-        return quart.Response(text, mimetype="text/yaml")
+        return quart.Response(text, mimetype="text/json")
 
 def main():
     port = int(os.environ.get('PORT', 33507))
