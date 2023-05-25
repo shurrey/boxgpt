@@ -18,9 +18,9 @@ async def add_todo(username):
     _TODOS[username].append(request["todo"])
     return quart.Response(response='OK', status=200)
 
-@app.get("/todos/<string:username>")
-async def get_todos(username):
-    return quart.Response(response=json.dumps(_TODOS.get(username, [])), status=200)
+@app.get("/test")
+async def get_todos():
+    return quart.Response(status=200)
 
 @app.delete("/todos/<string:username>")
 async def delete_todo(username):
@@ -43,10 +43,10 @@ async def plugin_manifest():
         text = f.read()
         return quart.Response(text, mimetype="text/json")
 
-@app.get("/openapi.json")
+@app.get("/openapi.yaml")
 async def openapi_spec():
     host = request.headers['Host']
-    with open("openapi.json") as f:
+    with open("openapi.yaml") as f:
         text = f.read()
         return quart.Response(text, mimetype="text/json")
 
