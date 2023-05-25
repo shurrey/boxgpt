@@ -16,7 +16,7 @@
 },
   "api": {
     "type": "openapi",
-    "url": "https://boxgpt.herokuapp.com/openapi.yaml"
+    "url": "https://boxgpt.herokuapp.com/openapi.json"
   },
   "logo_url": "https://boxgpt.herokuapp.com/logo.png",
   "contact_email": "scott.hurrey@box.com",
