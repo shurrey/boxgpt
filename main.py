@@ -18,9 +18,13 @@ async def add_todo(username):
     _TODOS[username].append(request["todo"])
     return quart.Response(response='OK', status=200)
 
-@app.get("/test")
-async def get_todos():
-    return quart.Response(status=200)
+@app.get("/folders")
+async def get_folders():
+    return quart.Response(response='OK', status=200)
+
+@app.get("/files")
+async def get_files():
+    return quart.Response(response='OK', status=200)
 
 @app.delete("/todos/<string:username>")
 async def delete_todo(username):

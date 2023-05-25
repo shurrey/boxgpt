@@ -5,7 +5,12 @@ info:
 servers:
   - url: https://boxgpt.herokuapp.com
 paths:
-  /test:
+  /folders:
+    get:
+      responses:
+        '200':
+          description: OK
+  /files:
     get:
       responses:
         '200':
