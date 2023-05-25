@@ -6,9 +6,9 @@
   "description_for_model": "Add files store in Box to your ChatGPT context",
   "auth": {
     "type": "oauth",
-    "client_url": "https://api.box.com/oauth2/token",
-    "scope": "*",
-    "authorization_url": "https://account.box.com/api/oauth2/authorize",
+    "client_url": "https://account.box.com/api/oauth2/authorize",
+    "scope": "",
+    "authorization_url": "https://api.box.com/oauth2/token",
     "authorization_content_type": "application/json",
     "verification_tokens": {
         "openai": "44f8dc7b1798455c981ab68fc0c3db19"
