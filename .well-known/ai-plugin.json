@@ -11,7 +11,7 @@
     "authorization_url": "https://api.box.com/oauth2/token",
     "authorization_content_type": "application/json",
     "verification_tokens": {
-        "openai": "93389fa993614f90b99f30dfcdb8e63b"
+        "openai": "54e4b10be7104761adc20fed0319c6ed"
     }
 },
   "api": {
