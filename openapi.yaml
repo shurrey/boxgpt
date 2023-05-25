@@ -6,16 +6,16 @@ servers:
   - url: https://boxgpt.herokuapp.com
 paths:
   /folders:
-    operationId: getFolders
-    summary: Get the list of folders
     get:
+      operationId: getFolders
+      summary: Get the list of folders
       responses:
         '200':
           description: OK
   /files:
-    operationId: getFiles
-    summary: Get the list of files
     get:
+      operationId: getFiles
+      summary: Get the list of files
       responses:
         '200':
           description: OK
