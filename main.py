@@ -21,11 +21,13 @@ async def add_todo(username):
 @app.get("/folders")
 async def get_folders():
     print(request.headers)
+    print(request.headers['Authorization'])
     return quart.Response(response='OK', status=200)
 
 @app.get("/files")
 async def get_files():
     print(request.headers)
+    print(request.headers['Authorization'])
     return quart.Response(response='OK', status=200)
 
 @app.delete("/todos/<string:username>")
