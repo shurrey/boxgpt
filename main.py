@@ -1,14 +1,26 @@
 import json
 import os
 
+from boxsdk import Client, OAuth2
+from config import AppConfig
+
 import quart
 import quart_cors
 from quart import request
 
 app = quart_cors.cors(quart.Quart(__name__), allow_origin="https://chat.openai.com")
 
-# Keep track of todo's. Does not persist if Python session is restarted.
 _TODOS = {}
+
+# Keep track of todo's. Does not persist if Python session is restarted.
+def get_auth(token):
+    oauth = OAuth2(
+        client_id=AppConfig().client_id,
+        client_secret=AppConfig().client_secret,
+        access_token=token.split()[1]
+    )
+
+    return oauth
 
 @app.post("/todos/<string:username>")
 async def add_todo(username):
@@ -28,7 +40,23 @@ async def get_folders():
 async def get_files():
     print(request.headers)
     print(request.headers['Authorization'])
-    return quart.Response(response='OK', status=200)
+
+    oauth = get_auth(request.headers['Authorization'])
+
+    client = Client(oauth)
+
+    items = client.folder(folder_id='0').get_items()
+
+    itemsArray = []
+
+    for item in items['entries']:
+        itemsArray.append({
+            "id": item.id,
+            "type": item.type,
+            "name": item.name
+        })
+    
+    return quart.Response(itemsArray, status=200)
 
 @app.delete("/todos/<string:username>")
 async def delete_todo(username):

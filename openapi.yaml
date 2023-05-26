@@ -15,7 +15,26 @@ paths:
   /files:
     get:
       operationId: getFiles
-      summary: Get the list of files
+      summary: List user files
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Files'
+                example: 
+                  id: "12345"
+                  type: "file"
+                  name: "Contract.pdf"
+components:
+  schemas:
+    Files:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
