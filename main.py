@@ -3,6 +3,7 @@ import os
 
 from boxsdk import Client, OAuth2
 from config import AppConfig
+import requests
 
 import quart
 import quart_cors
@@ -63,6 +64,16 @@ async def get_files():
     itemJson = json.dumps(itemsArray)
     
     return quart.Response(response=itemJson, status=200)
+
+@app.get("/files/content/<string:file_id")
+async def get_file_content(file_id):
+
+    content_url=f"https://dl.boxcloud.com/api/2.0/internal_files/{file_id}/versions/0/representations/extracted_text/content/?access_token={request.headers['Authorization'].split()[1]}"
+
+    r = requests.get(url=content_url)
+
+    return quart.Response(response=r.text, status=200)
+
 
 @app.delete("/todos/<string:username>")
 async def delete_todo(username):

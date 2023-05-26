@@ -27,6 +27,25 @@ paths:
                   id: "12345"
                   type: "file"
                   name: "Contract.pdf"
+  /files/content:
+    get:
+      operationId: getFilesContent
+      summary: Retrieve content by file id to be added to chatgpt context
+      parameters:
+        - in: path
+          name: file_id
+          schema:
+            type: string
+          required: true
+          description: File Id of the file to retrieve content to be added to chatgpt context
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: This is my file content
 components:
   schemas:
     Files:
