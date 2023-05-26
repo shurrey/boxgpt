@@ -47,6 +47,8 @@ async def get_files():
 
     items = client.folder(folder_id='0').get_items()
 
+    print(f"items {items}, objectType {type(items)}")
+
     itemsArray = []
 
     for item in items['entries']:
