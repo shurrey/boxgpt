@@ -20,7 +20,7 @@ paths:
                   id: "12345"
                   type: "file"
                   name: "Contract.pdf"
-  /folders{folder_id}:
+  /folders/{folder_id}:
     get:
       operationId: getFiles
       summary: List user files in a folder
