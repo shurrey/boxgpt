@@ -8,7 +8,7 @@ paths:
   /folders:
     get:
       operationId: getFolders
-      summary: List files from the root folder
+      summary: List user files
       responses:
         '200':
           description: OK
@@ -22,8 +22,8 @@ paths:
                   name: "Contract.pdf"
   /folders/{folder_id}:
     get:
-      operationId: getFiles
-      summary: List user files in a folder
+      operationId: getFoldersById
+      summary: List user files in a specific folder
       parameters:
         - in: path
           name: folder_id
