@@ -51,7 +51,7 @@ async def get_files():
 
     itemsArray = []
 
-    for item in items['entries']:
+    for item in items:
         itemsArray.append({
             "id": item.id,
             "type": item.type,
