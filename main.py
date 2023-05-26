@@ -65,7 +65,7 @@ async def get_files():
     
     return quart.Response(response=itemJson, status=200)
 
-@app.get("/files/content/<string:file_id")
+@app.get("/files/content/<string:file_id>")
 async def get_file_content(file_id):
 
     content_url=f"https://dl.boxcloud.com/api/2.0/internal_files/{file_id}/versions/0/representations/extracted_text/content/?access_token={request.headers['Authorization'].split()[1]}"
