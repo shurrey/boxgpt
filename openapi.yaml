@@ -27,7 +27,7 @@ paths:
                   id: "12345"
                   type: "file"
                   name: "Contract.pdf"
-  /files/content:
+  /files/content/{file_id}:
     get:
       operationId: getFilesContent
       summary: Retrieve content by file id to be added to chatgpt context
