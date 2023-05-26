@@ -11,43 +11,32 @@ from quart import request
 
 app = quart_cors.cors(quart.Quart(__name__), allow_origin="https://chat.openai.com")
 
-_TODOS = {}
 
-# Keep track of todo's. Does not persist if Python session is restarted.
-def get_auth(token):
+'''
+    Take the access token from ChatGPT and generate a new Box SDK Auth object
+'''
+def get_auth(access_token):
     oauth = OAuth2(
         client_id=AppConfig().client_id,
         client_secret=AppConfig().client_secret,
-        access_token=token.split()[1]
+        access_token=access_token.split()[1]
     )
 
     return oauth
 
-@app.post("/todos/<string:username>")
-async def add_todo(username):
-    request = await quart.request.get_json(force=True)
-    if username not in _TODOS:
-        _TODOS[username] = []
-    _TODOS[username].append(request["todo"])
-    return quart.Response(response='OK', status=200)
-
-@app.get("/folders")
-async def get_folders():
-    print(request.headers)
-    print(request.headers['Authorization'])
-    return quart.Response(response='OK', status=200)
-
-@app.get("/files")
-async def get_files():
-    print(request.headers)
-    print(request.headers['Authorization'])
-
-    oauth = get_auth(request.headers['Authorization'])
+'''
+    Call the Box API to get a list of files and folders, build the response body, and return
+    it to the calling function so it can send it to chatgpt
+'''
+def get_files_from_box(access_token, folder_id):
+    print(f"build_json_response: access_token: {access_token}, folder_id: {folder_id}")
+    
+    oauth = get_auth(access_token)
 
     client = Client(oauth)
 
-    items = client.folder(folder_id='0').get_items()
-
+    items = client.folder(folder_id=folder_id).get_items()
+    
     print(f"items {items}, objectType {type(items)}")
 
     itemsArray = []
@@ -61,12 +50,36 @@ async def get_files():
 
     print(f"itemsArray {itemsArray}")
 
-    itemJson = json.dumps(itemsArray)
-    
-    return quart.Response(response=itemJson, status=200)
+    return json.dumps(itemsArray)
 
+'''
+    Fetch the contents of the root folder
+'''
+@app.get("/folders")
+async def get_folders():
+    print(f"get_folders: access_token: {request.headers['Authorization']}")
+    
+    response_body=get_files_from_box(request.headers['Authorization'], 0)
+    
+    return quart.Response(response=response_body, status=200)
+
+'''
+    Fetch the contents of a specific folder
+'''
+@app.get("/folders/<string:folder_id>")
+async def get_folders_by_id(folder_id):
+    print(f"get_folders_by_id: access_token: {request.headers['Authorization']}, folder_id: {folder_id}")
+    
+    response_body=get_files_from_box(request.headers['Authorization'], folder_id)
+    
+    return quart.Response(response=response_body, status=200)
+
+'''
+    Get the contents of a file
+'''
 @app.get("/files/content/<string:file_id>")
 async def get_file_content(file_id):
+    print(f"get_file_content: access_token: {request.headers['Authorization']}, folder_id: {file_id}")
 
     content_url=f"https://dl.boxcloud.com/api/2.0/internal_files/{file_id}/versions/0/representations/extracted_text/content/?access_token={request.headers['Authorization'].split()[1]}"
 
@@ -75,15 +88,7 @@ async def get_file_content(file_id):
     return quart.Response(response=r.text, status=200)
 
 
-@app.delete("/todos/<string:username>")
-async def delete_todo(username):
-    request = await quart.request.get_json(force=True)
-    todo_idx = request["todo_idx"]
-    # fail silently, it's a simple plugin
-    if 0 <= todo_idx < len(_TODOS[username]):
-        _TODOS[username].pop(todo_idx)
-    return quart.Response(response='OK', status=200)
-
+# ChatGPT registration endpoints
 @app.get("/logo.png")
 async def plugin_logo():
     filename = 'logo.png'

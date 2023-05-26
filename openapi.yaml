@@ -8,14 +8,29 @@ paths:
   /folders:
     get:
       operationId: getFolders
-      summary: Get the list of folders
+      summary: List files from the root folder
       responses:
         '200':
           description: OK
-  /files:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Files'
+                example: 
+                  id: "12345"
+                  type: "file"
+                  name: "Contract.pdf"
+  /folders{folder_id}:
     get:
       operationId: getFiles
-      summary: List user files
+      summary: List user files in a folder
+      parameters:
+        - in: path
+          name: folder_id
+          schema:
+            type: string
+          required: true
+          description: File Id of the file to retrieve content to be added to chatgpt context
       responses:
         '200':
           description: OK
