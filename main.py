@@ -77,7 +77,7 @@ async def get_folders_by_id(folder_id):
 '''
     Get the contents of a file
 '''
-@app.get("/files/content/<string:file_id>")
+@app.get("/files/<string:file_id>")
 async def get_file_content(file_id):
     print(f"get_file_content: access_token: {request.headers['Authorization']}, folder_id: {file_id}")
 

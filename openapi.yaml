@@ -8,7 +8,7 @@ paths:
   /folders:
     get:
       operationId: getFolders
-      summary: List user files
+      summary: List all files when you don't have a folder_id
       responses:
         '200':
           description: OK
@@ -23,7 +23,7 @@ paths:
   /folders/{folder_id}:
     get:
       operationId: getFoldersById
-      summary: List user files in a specific folder
+      summary: List all files based on the file id of the folder
       parameters:
         - in: path
           name: folder_id
@@ -42,7 +42,7 @@ paths:
                   id: "12345"
                   type: "file"
                   name: "Contract.pdf"
-  /files/content/{file_id}:
+  /files/{file_id}:
     get:
       operationId: getFilesContent
       summary: Retrieve content by file id to be added to chatgpt context
