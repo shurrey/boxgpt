@@ -57,8 +57,10 @@ async def get_files():
             "type": item.type,
             "name": item.name
         })
+
+    print(f"itemsArray {itemsArray}")
     
-    return quart.Response(itemsArray, status=200)
+    return quart.Response(itemsArray, status=200, mimetype="application/json")
 
 @app.delete("/todos/<string:username>")
 async def delete_todo(username):
