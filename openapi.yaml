@@ -30,7 +30,7 @@ paths:
           schema:
             type: string
           required: true
-          description: File Id of the file to retrieve content to be added to chatgpt context
+          description: ID of the folder to list the files from
       responses:
         '200':
           description: OK
